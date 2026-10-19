@@ -1,0 +1,8 @@
+// The web workspace has two TypeScript projects, because its files run in two places:
+// - `tsconfig.app.json`: the application in `src/`, which runs in the browser.
+// - `tsconfig.node.json`: `vite.config.ts`, which runs in Node.js.
+// This file only connects them. `tsc -b` checks both projects.
+{
+  "files": [],
+  "references": [{ "path": "./tsconfig.app.json" }, { "path": "./tsconfig.node.json" }]
+}

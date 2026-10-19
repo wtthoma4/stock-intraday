@@ -1,0 +1,41 @@
+# Starts the API and the web application with one command:
+#   docker compose up --build
+# Then open http://localhost:8080.
+#
+# The browser connects only to Nginx (the web container). Nginx sends /api to the API container.
+# The API has no port on the host, so all requests go through Nginx.
+
+name: stock-intraday
+
+services:
+  api:
+    build:
+      context: .
+      dockerfile: api/Dockerfile
+    # The example configuration is enough for a local run. For a different User-Agent or cache time,
+    # copy api/.env.example to api/.env and change this line to api/.env.
+    env_file: api/.env.example
+    environment:
+      # These values replace the values in the file for the container.
+      NODE_ENV: production
+      # A container must accept connections from the other container, not only from itself.
+      HOST: 0.0.0.0
+      # One proxy (Nginx) is in front of the API. The API trusts only the address that Nginx adds to X-Forwarded-For.
+      TRUST_PROXY: '1'
+      # The page and the API have the same origin through Nginx, so CORS is not necessary.
+      CORS_ALLOWED_ORIGINS: ''
+    restart: unless-stopped
+
+  web:
+    build:
+      context: .
+      dockerfile: web/Dockerfile
+    # Only this computer can open the application. Without 127.0.0.1, Docker opens the port to all networks
+    # of the computer, so other people on the same Wi-Fi or office network could use it.
+    ports:
+      - '127.0.0.1:8080:8080'
+    # Start Nginx when the health check of the API passes.
+    depends_on:
+      api:
+        condition: service_healthy
+    restart: unless-stopped

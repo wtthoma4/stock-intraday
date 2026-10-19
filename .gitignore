@@ -1,0 +1,23 @@
+# Node and Vite output
+node_modules/
+dist/
+coverage/
+.vite/
+*.local
+*.tsbuildinfo
+npm-debug.log*
+
+# Editor folders
+.vs/
+.idea/
+.vscode/*
+!.vscode/extensions.json
+
+# Local environment files. Keep the example file.
+.env
+.env.*
+!.env.example
+
+# Operating system files
+.DS_Store
+Thumbs.db

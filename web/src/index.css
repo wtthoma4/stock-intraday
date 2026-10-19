@@ -1,0 +1,389 @@
+/*
+ * The styles of the page. All colors are custom properties on :root, so light and dark mode
+ * change in one place. The chart colors come from a palette that the data visualization
+ * validator accepted for color blindness and contrast, in each mode.
+ */
+
+:root {
+  color-scheme: light;
+  --page: #f9f9f7;
+  --surface: #fcfcfb;
+  --text-primary: #0b0b0b;
+  --text-secondary: #52514e;
+  --text-muted: #6b6a66;
+  --border: rgba(11, 11, 11, 0.1);
+  --grid: #e1e0d9;
+  --axis: #c3c2b7;
+  --hover: rgba(11, 11, 11, 0.05);
+  --accent: #256abf;
+  --accent-text: #ffffff;
+  --error: #b42828;
+  --error-surface: #fdf1f1;
+  --skeleton: #ecebe6;
+  --series-high: #2a78d6;
+  --series-low: #eb6834;
+  --series-volume: #1baf7a;
+
+  font-family:
+    system-ui,
+    -apple-system,
+    'Segoe UI',
+    sans-serif;
+  line-height: 1.5;
+  color: var(--text-primary);
+  background: var(--page);
+}
+
+/* Dark mode follows the setting of the operating system. The dark colors are separate steps, not inverted colors. */
+@media (prefers-color-scheme: dark) {
+  :root {
+    color-scheme: dark;
+    --page: #0d0d0d;
+    --surface: #1a1a19;
+    --text-primary: #f0efec;
+    --text-secondary: #c3c2b7;
+    --text-muted: #9b9a94;
+    --border: rgba(255, 255, 255, 0.1);
+    --grid: #2c2c2a;
+    --axis: #383835;
+    --hover: rgba(255, 255, 255, 0.06);
+    --accent: #3987e5;
+    --accent-text: #0b0b0b;
+    --error: #f08a8a;
+    --error-surface: #2a1615;
+    --skeleton: #262624;
+    --series-high: #3987e5;
+    --series-low: #d95926;
+    --series-volume: #199e70;
+  }
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  background: var(--page);
+}
+
+.page {
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 32px 16px 64px;
+}
+
+h1 {
+  margin: 0 0 8px;
+  font-size: 1.75rem;
+  line-height: 1.2;
+}
+
+.intro {
+  margin: 0 0 24px;
+  color: var(--text-secondary);
+}
+
+/* Search form */
+
+.search-form label {
+  display: block;
+  margin-bottom: 4px;
+  font-weight: 600;
+}
+
+.search-row {
+  display: flex;
+  gap: 8px;
+}
+
+input,
+button {
+  font: inherit;
+  border-radius: 6px;
+}
+
+input {
+  flex: 1 1 auto;
+  min-width: 0;
+  max-width: 320px;
+  padding: 8px 12px;
+  color: var(--text-primary);
+  background: var(--surface);
+  border: 1px solid var(--axis);
+}
+
+input[aria-invalid='true'] {
+  border-color: var(--error);
+}
+
+button {
+  padding: 8px 20px;
+  font-weight: 600;
+  color: var(--accent-text);
+  background: var(--accent);
+  border: 1px solid var(--accent);
+  cursor: pointer;
+}
+
+button:disabled {
+  opacity: 0.6;
+  cursor: progress;
+}
+
+button.secondary {
+  color: var(--text-primary);
+  background: transparent;
+  border-color: var(--axis);
+}
+
+/* A clear focus ring for keyboard users, in both modes. */
+input:focus-visible,
+button:focus-visible,
+.table-scroll:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+.hint {
+  margin: 4px 0 0;
+  font-size: 0.875rem;
+  color: var(--text-muted);
+}
+
+.field-error {
+  margin: 4px 0 0;
+  font-size: 0.875rem;
+  color: var(--error);
+}
+
+/* Result area */
+
+.results {
+  margin-top: 32px;
+}
+
+.notice {
+  color: var(--text-secondary);
+}
+
+.results-title {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 4px 12px;
+  margin: 0 0 16px;
+  font-size: 1.375rem;
+}
+
+.results-period {
+  font-size: 0.9375rem;
+  font-weight: 400;
+  color: var(--text-secondary);
+}
+
+.error-alert {
+  padding: 16px;
+  background: var(--error-surface);
+  border: 1px solid var(--error);
+  border-radius: 8px;
+}
+
+.error-alert p {
+  margin: 0 0 8px;
+}
+
+.error-title {
+  font-weight: 600;
+}
+
+.trace-id {
+  font-size: 0.8125rem;
+  color: var(--text-muted);
+}
+
+/* Charts */
+
+.charts {
+  display: grid;
+  gap: 16px;
+  margin-bottom: 24px;
+}
+
+.chart {
+  margin: 0;
+  padding: 16px 16px 8px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+}
+
+.chart figcaption {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 8px 16px;
+  margin-bottom: 8px;
+}
+
+.chart-title {
+  font-weight: 600;
+}
+
+.legend {
+  display: flex;
+  gap: 16px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  font-size: 0.875rem;
+  color: var(--text-secondary);
+}
+
+.legend-item {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+/* A short colored line identifies a series. The text beside it stays in a text color. */
+.legend-key {
+  display: inline-block;
+  width: 14px;
+  height: 3px;
+  border-radius: 2px;
+}
+
+.chart-tooltip {
+  padding: 8px 12px;
+  font-size: 0.8125rem;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.12);
+}
+
+.chart-tooltip-day {
+  margin: 0 0 4px;
+  font-weight: 600;
+}
+
+.chart-tooltip dl {
+  margin: 0;
+}
+
+.chart-tooltip-row {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.chart-tooltip dt {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  color: var(--text-secondary);
+}
+
+.chart-tooltip dd {
+  margin: 0;
+  font-variant-numeric: tabular-nums;
+}
+
+/* Table */
+
+.table-scroll {
+  overflow-x: auto;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+}
+
+.summary-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.9375rem;
+}
+
+.summary-table caption {
+  padding: 12px 16px;
+  font-weight: 600;
+  text-align: left;
+}
+
+.summary-table th,
+.summary-table td {
+  padding: 8px 16px;
+  text-align: left;
+  white-space: nowrap;
+  border-top: 1px solid var(--grid);
+}
+
+.summary-table thead th {
+  font-size: 0.8125rem;
+  font-weight: 600;
+  color: var(--text-secondary);
+}
+
+.summary-table tbody th {
+  font-weight: 400;
+}
+
+/* Numbers align on the right, with digits of the same width, so the columns are simple to compare. */
+.summary-table .numeric {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+/* Loading */
+
+.skeleton {
+  background: var(--skeleton);
+  border-radius: 8px;
+  animation: pulse 1.5s ease-in-out infinite;
+}
+
+.skeleton-title {
+  width: 40%;
+  height: 28px;
+  margin-bottom: 16px;
+}
+
+.skeleton-chart {
+  height: 300px;
+  margin-bottom: 16px;
+}
+
+.skeleton-table {
+  height: 200px;
+}
+
+@keyframes pulse {
+  50% {
+    opacity: 0.5;
+  }
+}
+
+/* No animation for users who ask the system for less motion. */
+@media (prefers-reduced-motion: reduce) {
+  .skeleton {
+    animation: none;
+  }
+}
+
+/* Text for screen readers only. */
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+
+/* A date such as 2026-10-16 must not break at a hyphen on a narrow screen. */
+.nowrap {
+  white-space: nowrap;
+}

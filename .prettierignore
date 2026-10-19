@@ -1,0 +1,10 @@
+node_modules/
+dist/
+coverage/
+package-lock.json
+
+# These files are raw Yahoo responses. Prettier must not change them.
+api/test/infrastructure/fixtures/
+
+# This file contains verbatim prompts. Prettier must not change them.
+PROMPT_LOG.md

@@ -1,0 +1,17 @@
+# Files that Docker does not send to the build. The images install their own dependencies and build their own output.
+**/node_modules
+**/dist
+**/coverage
+**/.vite
+**/*.tsbuildinfo
+
+# Local environment files can contain secrets. Keep the example files, because the images read them.
+**/.env
+**/.env.*
+!**/.env.example
+
+# Files that the images do not need.
+**/*.md
+.git
+.vscode
+.idea

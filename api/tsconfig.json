@@ -1,0 +1,14 @@
+// This file is for the type check, the editor and ESLint. `tsconfig.build.json` makes the output.
+{
+  // Use the strict settings that apply to all packages.
+  "extends": "../tsconfig.base.json",
+  "compilerOptions": {
+    // The API runs on Node.js, so it needs the Node.js global types, for example `process`.
+    "types": ["node"],
+    // The type check does not write files.
+    "noEmit": true
+  },
+  // Check the source, the tests and the Vitest config.
+  // ESLint uses this project for its type rules, so each linted TypeScript file must be in this list.
+  "include": ["src", "test", "vitest.config.ts"]
+}

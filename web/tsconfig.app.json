@@ -1,0 +1,31 @@
+// The TypeScript settings for the application code in `src/`, which runs in the browser.
+// Vite compiles the code, so TypeScript only checks the types.
+{
+  // Use the strict settings that apply to all packages, for example `noUncheckedIndexedAccess`.
+  "extends": "../tsconfig.base.json",
+  "compilerOptions": {
+    // `tsc -b` keeps its state in this file, so the next check is faster.
+    "tsBuildInfoFile": "./node_modules/.tmp/tsconfig.app.tsbuildinfo",
+    // The code runs in a browser, so it needs the DOM types in addition to ES2023.
+    "lib": ["ES2023", "DOM", "DOM.Iterable"],
+    // `vite/client` gives the types of `import.meta.env` and of asset imports.
+    // Node.js types are not included, because the browser has no `process`.
+    "types": ["vite/client"],
+
+    // Vite resolves the imports like a bundler, so these settings agree with Vite.
+    "module": "ESNext",
+    "moduleResolution": "Bundler",
+    // Permit imports with the `.tsx` extension, as the Vite template writes them.
+    "allowImportingTsExtensions": true,
+    // Permit imports of files such as `.css`, with a type declaration from Vite.
+    "allowArbitraryExtensions": true,
+    // React 19 uses the automatic JSX runtime, so a component file does not import React.
+    "jsx": "react-jsx",
+    // Use only TypeScript syntax that a compiler can remove without a change to the JavaScript (no `enum`).
+    // Vite removes the types file by file, so other syntax can give different results.
+    "erasableSyntaxOnly": true,
+    // The type check does not write files.
+    "noEmit": true
+  },
+  "include": ["src"]
+}

@@ -1,0 +1,16 @@
+// This file makes the JavaScript output for production.
+{
+  // Use the API settings, so the build and the type check use the same rules.
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    // The build writes files.
+    "noEmit": false,
+    // With this root, `src/server.ts` goes to `dist/server.js`, not to `dist/src/server.js`.
+    "rootDir": "src",
+    "outDir": "dist",
+    // With `node --enable-source-maps`, an error stack shows the TypeScript file and line.
+    "sourceMap": true
+  },
+  // Do not compile the tests into the output.
+  "include": ["src"]
+}

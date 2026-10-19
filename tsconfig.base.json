@@ -1,0 +1,49 @@
+// These settings apply to all packages. Each package extends this file.
+{
+  "compilerOptions": {
+    // Node.js 22 supports all ES2023 features, so TypeScript does not change the syntax to an older version.
+    "target": "ES2023",
+    // Use only the ES2023 runtime types. Each package adds the types for its runtime, for example Node.js or DOM.
+    "lib": ["ES2023"],
+    // Node.js loads the API as ES modules. With NodeNext, TypeScript uses the same import rules as Node.js.
+    // For example, a relative import must have the `.js` extension.
+    "module": "NodeNext",
+    "moduleResolution": "NodeNext",
+    // Each file is a module, also a file without `import` or `export`. This stops conflicts between global names.
+    "moduleDetection": "force",
+
+    // Set all strict checks. `strictNullChecks` is the most important, because Yahoo data can contain `null`.
+    "strict": true,
+    // An index access can give `undefined`. Yahoo sends parallel arrays, and an index can be outside one array.
+    "noUncheckedIndexedAccess": true,
+    // An optional property can have the value `undefined` only if its type includes `undefined`.
+    // This makes the difference between an absent property and an `undefined` value clear.
+    "exactOptionalPropertyTypes": true,
+    // A method that replaces a base class method must have the `override` keyword.
+    // If the base method changes its name, the compiler shows an error.
+    "noImplicitOverride": true,
+    // Each path in a function with a return value must return a value.
+    "noImplicitReturns": true,
+    // Each `case` with code must end with `break`, `return` or `throw`.
+    "noFallthroughCasesInSwitch": true,
+    // A local variable or parameter that the code does not use is an error.
+    // If an interface needs a parameter that the code does not use, start its name with `_`.
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+
+    // TypeScript keeps each import as written and removes only `import type`.
+    // As a result, `tsc`, `tsx`, Vitest and Vite give the same output.
+    "verbatimModuleSyntax": true,
+    // Each file must compile alone, because `tsx`, Vitest and Vite compile one file at a time.
+    "isolatedModules": true,
+    // Permit JSON imports with `with { type: 'json' }`. No code imports JSON at the moment:
+    // the tests read the Yahoo fixtures with `readFileSync`.
+    "resolveJsonModule": true,
+    // Do not check the `.d.ts` files in `node_modules`. Errors in other packages are not errors in this code.
+    // This also makes the check faster.
+    "skipLibCheck": true,
+    // Do not load the global types from all `@types` packages.
+    // Each package names the global types that it needs, so DOM and Node.js types do not mix.
+    "types": []
+  }
+}
